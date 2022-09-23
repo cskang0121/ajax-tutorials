@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+<head>
+  <title>AJAX JSONP FOR SAME ORIGIN POLICY</title>
+  <meta charset='UTF-8'>
+  <style>
+    #target{
+      height: 100px;
+      width: 200px;
+      border: 1px solid #96b;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='target'></div>
+
+  <button id="request">REQUEST CUSTOMER DATA</button>
+  <script>
+    const target = document.getElementById('target');
+    const button = document.getElementById('request');
+
+    const handleData = (data) => {
+      target.innerHTML = `username: ${data[0].username} <br> password: ${data[0].password}`;
+    }
+
+    const handleNoExist = () => {
+      target.style.borderColor = 'red';
+    }
+
+
+    button.onclick = () => {
+      const xhr = new XMLHttpRequest();
+
+      xhr.open('GET', 'http://localhost:9002/cors-server');
+
+      xhr.send();
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4
+        && xhr.status >= 200
+        && xhr.status < 300) {
+          const data = JSON.parse(xhr.response);
+          if (data) {handleData(data);} else {handleNoExist();}
+        }
+      }
+    }
+    
+  </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>AJAX POST Request</title>
+  <meta charset="UTF-8">
+  <style>
+    #target {
+      height: 100px;
+      width: 200px;
+      border: 1px solid #90c;
+    }
+  </style>
+</head>
+
+<body>
+    <div id="target"></div>
+</body>
+
+<script>
+  const target = document.getElementById('target');
+
+  target.addEventListener('mouseover', () => {
+
+    // 1. Create a XHR instance
+    const xhr = new XMLHttpRequest();
+
+    // 2. Open a request
+    xhr.open('POST', 'http://localhost:8000/server');
+
+    // 3. Set request header
+    // xhr.setRequestHeader('Content-Type', 'application/x-wwww-form-urlencoded');
+    // xhr.setRequestHeader('User-Defined-Header', 'testing')
+
+    // 4, Send a request with payload
+    xhr.send('name=kangchinshen&password=test123');
+
+    // 5. Specify the action upon receiving the response
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4 && 
+      xhr.status === 200) {
+        target.innerHTML = xhr.response;
+      }
+    }
+
+  });
+</script>
+
+</html>

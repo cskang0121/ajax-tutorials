@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>JQUERY AJAX Request</title>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-3">JQUERY GET</button>
+
+  <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-3">JQUERY POST</button>
+
+  <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-3">JQUERY AJAX</button>
+</body>
+
+<script type="application/javascript">
+    
+  /* jQuery GET */
+  $('button').eq(0).click(() => {
+
+    $.get(
+      'http://localhost:8000/server', 
+      {name: 'kangchinshen', password: 'test123'},
+      (data) => {console.log(data)},
+      'text'
+    );
+
+  });
+  
+
+  /* jQuery POST */
+  $('button').eq(1).click(() => {
+
+    $.post(
+        'http://localhost:8000/server', 
+        {username:'kang', password:'test123'},
+        (data) => {console.log(data)},
+        'text'
+      );
+
+  });
+  
+
+  /* jQuery AJAX */
+  $('button').eq(2).click(() => {
+    const xhr = $.ajax(
+      'http://localhost:8000/server',
+      {
+        timeout: 3000,
+        error: (request, status, error) => {
+          
+          // Handle timeout
+          if (error === 'timeout') {
+            alert('Timeout!');]
+
+          // Handle network error
+          } else {
+            alert('Network Error!');
+          }
+        },
+
+        type: 'POST',
+
+        headers: {
+          'Content-Type': 'application/x-wwww-form-urlencoded'
+        },
+        data: {username:'kang', password:'test123'},
+
+        success: (response) => {
+          console.log(response)
+        },
+
+        dataType: 'text',
+        
+      }
+    )
+  });
+
+
+</script>
+</html>

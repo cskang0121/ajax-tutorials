@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+<head>
+    <title>AJAX SAME ORIGIN POLICY</title>
+    <meta charset='UTF-8'>
+</head>
+
+<body>
+    <button id='target'>RETRIEVE CUSTOMER DATA</button>
+    <script type='application/javascript'>
+        const btn = document.getElementById('target');
+
+        btn.onclick = () => {
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('GET', '/data');
+
+            xhr.send();
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4
+                && xhr.status >= 200
+                && xhr.status < 300) {
+                    console.log(xhr.response);
+                }
+            };
+        }
+    </script>
+</body>
+
+</html>

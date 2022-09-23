@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>AJAX GET Request</title>
+  <meta charset="UTF-8">
+  <style>
+    #result {
+      border: solid 1px #90b;
+      height: 100px;
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="sendButton">点击发送请求</button>
+  <div id="result"></div>
+</body>
+
+<script type="application/javascript">
+
+  const sendButton = document.getElementById('sendButton');
+
+  const result = document.getElementById('result');
+
+  sendButton.onclick = () => {
+    const xhr = new XMLHttpRequest();
+
+    /* Method 2: Set responseType
+    xhr.responseType = 'json';
+    */
+
+    xhr.open('GET', 'http://localhost:8000/server');
+
+    xhr.send();
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+
+          /* JSON Parsing */
+          const message = xhr.response;
+
+          /* Method 1: Manually Parsing */
+          const messageJS = JSON.parse(message);
+          result.innerHTML = messageJS.username;
+
+          // Check Result
+          console.log(message)
+        }
+      }
+    }   
+  }
+</script>
+</html>

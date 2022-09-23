@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+<head>
+  <title>JQUERY AJAX JSONP FOR SAME ORIGIN POLICY</title>
+  <meta charset='UTF-8'>
+  <style>
+    #target{
+      height: 100px;
+      width: 200px;
+      border: 1px solid #96b;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <div id='target'></div>
+
+  <button id='request'>REQUEST CUSTOMER DATA</button>
+
+  <script>
+    /* Make jQuery JSONP request dynamically */
+    const handleData = (data) => {
+      $('#target').html(`username: ${data[0].username} <br> password: ${data[0].password}`);
+    }
+
+    const handleNoExist = () => {
+      $('#target').css('borderColor', 'red');
+    }
+
+    $('#request').click(() => {
+      $.getJSON(
+        'http://localhost:9001/jquery-server?callback=?', 
+        (data) => {
+          if (data) {handleData(data);} else {handleNoExist();}
+        }
+    )});
+  </script>
+
+</body>
+
+</html>

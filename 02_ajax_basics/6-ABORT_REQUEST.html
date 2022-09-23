@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>AJAX ABORT Request</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <button>点击发送请求</button>
+  <button>点击取消请求</button>
+</body>
+
+<script type="application/javascript">
+    const sendBtn = document.getElementsByTagName('button')[0];
+    const cancelBtn = document.getElementsByTagName('button')[1];
+
+    let xhr = null;
+
+    sendBtn.onclick = () => {
+        xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8000/server');
+        xhr.send();
+    }
+
+    cancelBtn.onclick = () => {
+        xhr.abort();
+    }
+
+</script>
+</html>
